@@ -139,3 +139,27 @@ describe("/PUT/:id ", () => {
     });
   });
 });
+
+// remove by id api testing
+
+describe("/DELETE/:id product", () => {
+  it("it should remove a product by given the id", (done) => {
+    let product = new products({
+      productName: "Laptop698",
+      productCatagory: "Electronics21",
+      productPrice: 450200,
+      productQuantity: 21239,
+    });
+    product.save((err, product) => {
+      chai
+        .request(app)
+        .delete("/remove/" + product.id)
+        .end((err, res) => {
+          expect(200, done);
+
+          expect(res.body).to.have.a("object");
+          done();
+        });
+    });
+  });
+});
